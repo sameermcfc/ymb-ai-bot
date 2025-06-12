@@ -6,7 +6,7 @@ use crate::{errors::Error, utils::generate_message::generate};
 
 
 pub fn create_route() -> Router {
-    Router::new().route("/message/:desc", get(get_message))
+    Router::new().route("/message/{desc}", get(get_message))
 }
 
 async fn get_message(Path(desc): Path<String>) -> Result<Json<Message>, Error> {

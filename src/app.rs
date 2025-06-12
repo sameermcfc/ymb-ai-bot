@@ -18,6 +18,7 @@ pub async fn create_app() -> Router {
     let state = AppState { public_keys };
     Router::new()
         .merge(routes::message::create_route())
+        .merge(routes::events::create_route())
         // High level logging of requests and responses
         .layer(
             trace::TraceLayer::new_for_http()

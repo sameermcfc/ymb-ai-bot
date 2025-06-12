@@ -22,11 +22,12 @@ use settings::SETTINGS;
 
 #[tokio::main]
 async fn main() -> Result<(), std::io::Error> {
+    dotenv().ok();
     let port = SETTINGS.server.port;
     let address = SocketAddr::from(([0, 0, 0, 0], port)); 
 
     let app = app::create_app().await;
-    dotenv().ok();
+    
 
     let listener = TcpListener::bind(address).await?;
     info!("Server listening on {}", &address);
