@@ -60,7 +60,7 @@ impl CalendarAgent {
         let index = vector_store.index(embedding_model);
 
         let agent = Arc::new(gemini_client.agent(gemini::completion::GEMINI_1_5_FLASH)
-        .preamble(include_str!("../prompts/calendar_agent_preamble.txt"))
+        .preamble(include_str!("../prompts/calendar_preamble.txt"))
         .dynamic_context(2, index)
         .build());
 
