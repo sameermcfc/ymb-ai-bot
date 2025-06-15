@@ -5,8 +5,9 @@ use ical::IcalParser;
 use serde::{Deserialize, Serialize};
 use std::io::BufReader;
 use super::calendar_agent::CalendarAgent;
+use std::time::Instant;
 
-#[derive(Serialize)]
+#[derive(Serialize, Deserialize)]
 pub struct CalendarEvent {
     summary: String,
     start: String,
@@ -29,33 +30,57 @@ pub struct StructuredEvent {
     pub emoji: Option<char>,
 }
 
+fn strip_markdown_wrappers(s: &str) -> &str {
+    s.trim()
+        .trim_start_matches("```json")
+        .trim_start_matches("```")
+        .trim_end_matches("```")
+        .trim()
+}
 
-
-pub async fn generate_structured_calendar_data(month: u32) -> Result<Vec<String>> {
+pub async fn generate_structured_calendar_data(month: u32) -> Result<Vec<serde_json::Value>> {
     let agent = CalendarAgent::new().await?;
     let events = get_events_for_given_month(month).await;
 
-    let mut structured = Vec::new();
-    for event in events {
-        let prompt = serde_json::to_string(&event)?;
-        let response = agent.process_message(&prompt).await?;
-        structured.push(response);
+    if events.is_empty() {
+        // Return empty Vec if there are no events, skip agent call
+        return Ok(Vec::new());
     }
 
-    Ok(structured)
+    let prompt = serde_json::to_string(&events)?;
+    println!("{}", prompt);
+    let start_time = Instant::now();
+    let response = agent.process_message(&prompt).await?;
+    println!("Parsing Event in {:?}", start_time.elapsed());
+    println!("{}", response);
+    let cleaned = strip_markdown_wrappers(&response);
+    let parsed: serde_json::Value = serde_json::from_str(cleaned)?;
+    let events_array = parsed
+        .get("events")
+        .and_then(|v| v.as_array())
+        .ok_or_else(|| anyhow::anyhow!("Expected 'events' key with array value"))?
+        .clone();
+    Ok(events_array)
 }
 
 
 pub async fn get_events_for_given_month(month: u32) -> Vec<CalendarEvent> {
+
+    // parse the .ics file from Google Calendar
+    use std::time::Instant;
+    let start_time = Instant::now();
     let url = "https://calendar.google.com/calendar/ical/a94f20aabb9de05c92ec695ba47397ec5ddf80f2aeed6d014d9b2a1d530cc8da%40group.calendar.google.com/public/basic.ics";
     let response = get(url).await.expect("Failed to fetch .ics");
     let bytes = response.bytes().await.expect("Read error");
+    println!("Download time: {:?}", start_time.elapsed());
+
+
     let reader = BufReader::new(bytes.as_ref());
     let parser = IcalParser::new(reader);
 
 
     let mut events = Vec::new();
-
+    let parse_start = Instant::now();
     for calendar in parser {
         if let Ok(c) = calendar {
             for event in c.events {
@@ -89,6 +114,7 @@ pub async fn get_events_for_given_month(month: u32) -> Vec<CalendarEvent> {
                     }
                 }
             }
+            println!("Parsing time: {:?}", parse_start.elapsed());
         }
     }
 

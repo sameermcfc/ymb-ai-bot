@@ -10,19 +10,12 @@ pub fn create_route() -> Router {
     Router::new().route("/events", get(events_handler))
 }
 
-fn strip_markdown_wrappers(s: &str) -> &str {
-    s.trim()
-        .trim_start_matches("```json")
-        .trim_start_matches("```")
-        .trim_end_matches("```")
-        .trim()
-}
 
 async fn events_handler(Query(params): Query<MonthQuery>) ->  Result<impl IntoResponse, impl IntoResponse> {
-    info!("Fetching structured events for month: {}", params.month);
+     info!("Fetching structured events for month: {}", params.month);
 
-    let raw = match generate_structured_calendar_data(params.month).await {
-        Ok(r) => r,
+    let events = match generate_structured_calendar_data(params.month).await {
+        Ok(events) => events,
         Err(e) => {
             error!("Failed to generate calendar data: {:?}", e);
             return Err((
@@ -32,24 +25,12 @@ async fn events_handler(Query(params): Query<MonthQuery>) ->  Result<impl IntoRe
         }
     };
 
-    if raw.is_empty() {
+    if events.is_empty() {
         info!("No structured events returned by AI");
         return Ok(Json(Vec::<Value>::new()));
     }
 
-    let mut parsed = Vec::new();
-    for (i, json_str) in raw.iter().enumerate() {
-        let cleaned = strip_markdown_wrappers(json_str);
-        match serde_json::from_str::<Value>(cleaned) {
-            Ok(val) => parsed.push(val),
-            Err(e) => {
-                error!("Failed to parse event #{}: {}", i, e);
-                error!("Raw string: {}", json_str);
-            }
-        }
-    }
-
-    Ok(Json(parsed))
+    Ok(Json(events))
 }
 
 #[derive(Serialize, Deserialize)]

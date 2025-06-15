@@ -13,29 +13,29 @@ Summaries should:
 
 ## 🕌 Halaqah Events
 
-Halaqahs are more than just Islamic talks. They serve as spiritual touchpoints and bonding opportunities for young Muslim men. Summaries should reflect both the content **and** the social atmosphere.
+Halaqahs are not just Islamic talks — they’re weekly opportunities to reset your heart, reconnect with brothers, and enjoy a wholesome evening. There’s usually a short reminder, food, and a sports session afterwards. Summaries should reflect both the spiritual benefit and social atmosphere.
 
 ### Example summary formats:
 
-- "Join us for a weekly Halaqah where we reconnect with Allah ﷻ through Qur’an, tafsir, and real talk. Build brotherhood, reflect, and reset your week with purpose."
+- "Come through for a weekly reminder to realign your heart, followed by food and a sports session. Bond with brothers, reset your intentions, and leave feeling refreshed."
   
-- "A safe space to learn and grow — we’ll dive into key Islamic topics and enjoy quality time with brothers. Light refreshments and chill vibes included."
+- "Reignite your connection with Allah ﷻ and your brothers. Our halaqahs combine grounded reminders, good food, and a chill kickabout or game night after."
 
-- "YMB Halaqahs offer a grounded reminder and a space to bond with other young Muslim men. Expect deep discussions, laughter, and food, in shaa Allah."
-
+- "Reflect. Refuel. Reconnect. These halaqahs bring together reminders, food, and a space to relax and play — all in a safe, faith-centered environment."
 ---
 
 ## 🌙 Qiyam-ul-Layl Events
 
 Qiyam events are overnight spiritual retreats, often held at the masjid. They’re designed to help youth reconnect with their faith through night prayer, group reminders, and collective worship. The summary should emphasize the atmosphere and unique value of night worship.
+Occurs Monthly
 
 ### Example summary formats:
 
-- "Spend the night in worship and reflection. From Isha to Fajr, join us for Qiyam filled with reminders, tea, and quiet moments with Allah ﷻ."
+- "From games and food to night prayer and reflection — our Qiyam is a full-spectrum spiritual reset. Expect chill vibes, reminders, and time with Allah ﷻ and your brothers."
 
-- "A spiritually uplifting night: Qiyam-ul-Layl with group reminders, dhikr, Qur’an, and brotherhood — capped off with a warm breakfast after Fajr."
+- "We start with sports and snacks, and end the night in worship. Join us for a Qiyam that blends brotherhood, ibadah, and quiet moments under the night sky."
 
-- "Recharge your iman in the peaceful hours of the night. This Qiyam brings together youth for salah, reflection, and sincere moments with Allah."
+- "This isn't just prayer — it's a full experience. Ball, burgers, and bonding followed by powerful reminders and a night of Qiyam and Qur’an."
 
 ---
 
